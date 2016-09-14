@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Digital Clock Excercise</title>
+	<style type="text/css">
+		body{
+			background-color: black;
+		}
+		#time{
+			font-family: "copperplate";
+			font-size: 8em;
+			width: 500px;
+			margin: 0 auto;
+			position: relative;
+			top: 150px;
+
+		}
+	</style>
+
+</head>
+<body id = "body">
+	<div id = "time">TIME</div>
+
+
+	<script type="text/javascript">
+		
+		function hoursScale(hours){
+			var result = (255 * hours)/23;
+			return result;
+		}
+		function otherScale(time){
+			var result = (255 * time)/59;
+			return result;
+		}
+
+		setInterval(changeBack,1000);
+
+		function changeBack(){
+			var d = new Date();
+			var hours1 = d.getHours();
+			var mins1 = d.getMinutes();
+			var secs1 = d.getSeconds();
+			hours = hoursScale(hours1);
+			mins = otherScale(mins1);
+			secs = otherScale(secs1);
+
+
+			
+			//Turn RGB numbers to hex  codes
+			// I borrowed this code
+			function rgbToHex(hours,mins,secs) {return toHex(secs)+toHex(hours)+toHex(mins)}
+			function toHex(n) {
+ 				n = parseInt(n,10);
+ 				if (isNaN(n)) return "00";
+ 				n = Math.max(0,Math.min(n,255));
+ 				return "0123456789ABCDEF".charAt((n-n%16)/16) + "0123456789ABCDEF".charAt(n%16);
+			}
+			var timeText = document.getElementById("time");
+
+			var body = document.getElementById("body");
+
+			console.log(rgbToHex(hours, mins, secs));
+		
+			body.style.backgroundColor = "#" + rgbToHex(hours, mins, secs);
+			timeText.innerText = hours1+":"+mins1+":"+secs1;
+		}
+
+
+	</script>
+
+</body>
+</html>
